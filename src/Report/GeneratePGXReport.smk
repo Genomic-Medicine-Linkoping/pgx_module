@@ -55,11 +55,12 @@ rule GeneratePGXReport:
         missed_variants = "results/Report/coverage/{sample}_{seqID}_depth_at_missing_annotated.gdf",
         diploids        = "results/Report/detected_variants/possible_diploids/{sample}_{seqID}.csv",
         depth_at_baits  = "results/gdf/{sample}_{seqID}.gdf",
-        interactions    = "results/Report/detected_variants/possible_interactions/{sample}_{seqID}.csv"
+        interactions    = "results/Report/detected_variants/possible_interactions/{sample}_{seqID}.csv",
+        report_template = "src/Report/generate_sample_report.Rmd"
     output:
-        html = "results/Report/{sample}_{seqID}_pgx.html"
+        html = "/home/lauri/Desktop/pgx_module/results/Report/{sample}_{seqID}_pgx.html"
     params:
-        haplotype_definitions = load_local(config["table_data"]["haplotype_definitions"]),
+        haplotype_definitions = config["table_data"]["haplotype_definitions"],
         dbsnp = config["dbsnp"],
         ref = config["reference_fasta"],
         name = config["name"],
@@ -68,28 +69,39 @@ rule GeneratePGXReport:
         phone = config["phone"],
     singularity:
         config["singularities"]["rmarkdown"]
+    log:
+        "logs/{sample}_{seqID}_GeneratePGXReport.log"
     shell:
         """
-        wkdir=$(pwd)  # Needed since Rscript will set wd to location of file not session
-        intdir=$(echo {output.html} | head -c -6)
-        Rscript \
-            -e ".libPaths('/lib/rlib'); library(rmdformats); rmarkdown::render('$wkdir/src/Report/generate_sample_report.Rmd', output_file='$wkdir/{output.html}', output_format=c('readthedown'), intermediates_dir='$wkdir/$intdir')" \
-            --args --title='Farmakogenomisk analys av {wildcards.sample}' --author=joel \
-            --found_variants=$wkdir/{input.found_variants} \
-            --missed_variants=$wkdir/{input.missed_variants}  \
-            --haplotype_definitions={params.haplotype_definitions} \
-            --clinical_guidelines=$wkdir/{input.diploids} \
-            --interaction_guidelines=$wkdir/{input.interactions} \
-            --data_location=$wkdir/data \
-            --depth_file=$wkdir/{input.depth_at_baits} \
-            --sample={wildcards.sample} \
-            --seqid={wildcards.seqID} \
-            --dbsnp=$(basename {params.dbsnp}) \
-            --ref=$(basename {params.ref}) \
-            --name="{params.name}" \
-            --adress="{params.adress}" \
-            --mail="{params.mail}" \
-            --phone="{params.phone}"
+        WKDIR=$(pwd)  # Needed since Rscript will set wd to location of file not session
+        INTDIR=$(echo {output.html} | head -c -6)
+        DBSNP=$(basename {params.dbsnp})
 
-            rmdir $wkdir/$intdir
+        Rscript -e "\
+        library(rmdformats); \
+        rmarkdown::render(\
+        input = '{input.report_template}', \
+        params = \
+        list(\
+        title  = 'Farmakogenomisk analys av {wildcards.sample}_{wildcards.seqID}', \
+        author = 'ljm', \
+        found_variants = '$WKDIR/{input.found_variants}', \
+        missed_variants = '$WKDIR/{input.missed_variants}', \
+        haplotype_definitions = '$WKDIR/{params.haplotype_definitions}', \
+        clinical_guidelines = '$WKDIR/{input.diploids}', \
+        interaction_guidelines = '$WKDIR/{input.interactions}', \
+        data_location = '$WKDIR/data', \
+        depth_file = '$WKDIR/{input.depth_at_baits}', \
+        sample = '{wildcards.sample}', \
+        seqid = '{wildcards.seqID}', \
+        dbsnp = '$DBSNP', \
+        ref = '{params.ref}', \
+        name = '{params.name}', \
+        adress = '{params.adress}', \
+        mail = '{params.mail}', \
+        phone = '{params.phone}'\
+        ), \
+        output_file = '{output.html}', \
+        intermediates_dir = '$WKDIR/$INTDIR', \
+        output_format = c('readthedown'))" &> {log}
         """
