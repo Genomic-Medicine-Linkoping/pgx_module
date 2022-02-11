@@ -1,0 +1,29 @@
+singularities:
+    gatk3:      "/data/sifs/pgx_module/gatk3.simg"
+    gatk4:      "/data/sifs/gatk/gatk_4.2.5.0.sif"
+    rmarkdown:  "/data/sifs/pgx_module/rmarkdown.simg"
+    samtools:   "/data/sifs/pgx_module/samtools.simg"
+    get_target: "/data/sifs/pgx_module/target_variants_python.simg"
+
+table_data:
+    target_regions:        "data/genomic_regions/exons_variants_pharmacogenomics_18_06_2019_ex_cyp2d6.bed"
+    target_rsid:           "data/genomic_regions/target_rsid.bed"
+    haplotype_definitions: "data/haplotypes/haplotype_definitions.csv"
+    hidden_haplotypes:     "data/haplotypes/hidden_haplotypes.csv"
+
+clinical_data:
+    clinical_guidelines:    "data/guidelines/clinical_guidelines.csv"
+    haplotype_activity:     "data/guidelines/haplotype_activity_score.csv"
+    interacting_guidelines: "data/guidelines/interaction_guidelines.csv"
+
+reference_fasta: "/data/Twist_DNA/hg19/genome.fa"
+dbsnp: "/data/ref/dbsnp_138.hg19.vcf"
+
+## Input location
+bam_location: "/data/TNscope/TNscope_data_extraction/deduped/{sample}_{seqID}.bam"
+
+# Contact information
+name: "Person Persson"
+adress: "Gatuvägen stadsplatsen 81, 54321"
+mail: "me@mymail.me"
+phone: "070 123 45 78"
