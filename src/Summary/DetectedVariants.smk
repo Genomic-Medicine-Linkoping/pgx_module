@@ -14,7 +14,7 @@ rule DetectedVariants:
         config["singularities"]["get_target"]
     shell:
         """
-        python3 {params.script_location}/src/Summary/get_target_variants.py \
+        python3 src/Summary/get_target_variants.py \
             --target_bed {params.target_bed} \
             --vcf {input.vcf} \
             --output {output.csv} &> {log}

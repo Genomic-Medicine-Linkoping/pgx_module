@@ -12,9 +12,9 @@ rule AppendIDtoGDF:
     singularity:
         config["singularities"]["get_target"]
     shell:
-         """
-         python3 {params.script_location}/src/Summary/append_rsid_to_gdf.py \
+        """
+        python3 src/Summary/append_rsid_to_gdf.py \
             --input_gdf={input.gdf} \
             --target_bed={params.target_bed} \
             --output_file={output.gdf} &> {log}
-         """
+        """

@@ -13,7 +13,7 @@ rule VariantFiltration:
         config["singularities"]["get_target"]
     shell:
         """
-        python3 {params.script_location}/src/Filtering/variant_filtration.py \
+        python3 src/Filtering/variant_filtration.py \
             --input_vcf={input.vcf} \
             --read_ratio={params.read_ratio} \
             --depth={params.DP} \

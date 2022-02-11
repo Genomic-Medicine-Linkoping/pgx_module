@@ -16,7 +16,7 @@ rule GetClinicalGuidelines:
         config["singularities"]["get_target"]
     shell:
         """
-        python3 {params.script_location}/src/Summary/get_possible_diplotypes.py \
+        python3 src/Summary/get_possible_diplotypes.py \
             --variant_csv {input.found_variants} \
             --haplotype_definitions {params.haplotype_definitions} \
             --clinical_guidelines {params.clinical_guidelines} \
@@ -39,7 +39,7 @@ rule Get_interaction_guidelines:
         "logs/{sample}_{seqID}_interaction_guidelines.log"
     shell:
         """
-        python3 {params.script_location}/src/Summary/get_interaction_guidelines.py \
+        python3 src/Summary/get_interaction_guidelines.py \
             --diploids {input.diploids} \
             --interaction_guidelines {params.interacting_targets} \
             --output {output.csv} &> {log}

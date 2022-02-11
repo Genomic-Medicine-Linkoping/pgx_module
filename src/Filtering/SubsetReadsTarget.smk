@@ -11,7 +11,7 @@ rule GetPaddedBed:
         config["singularities"]["get_target"]
     shell:
         """
-        python3 {params.script_location}/src/Summary/reform_genomic_region.py \
+        python3 src/Summary/reform_genomic_region.py \
             --target_bed={params.target_bed} \
             --output_file={output.interval} \
             --padding={params.padding} \
