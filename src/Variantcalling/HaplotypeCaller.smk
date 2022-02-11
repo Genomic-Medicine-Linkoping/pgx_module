@@ -3,18 +3,15 @@ rule Haplotypecaller:
     params:
         ref   = config["reference_fasta"],
         dbsnp = config["dbsnp"]
-    input:
-        bam = "work/{seqID}/Results/bam/{sample}_{seqID}-dedup.filtered.bam",
-        bai = "work/{seqID}/Results/bam/{sample}_{seqID}-dedup.filtered.bam.bai"
-    output:
-        vcf = "work/{seqID}/Results/Haplotypecaller/{sample}_{seqID}.vcf"
+    log:
+        "logs/{sample}_{seqID}_haplotypecaller.log",
     singularity:
         config["singularities"]["gatk4"]
     shell:
          """
-         gatk HaplotypeCaller \
+        (gatk HaplotypeCaller \
             -R {params.ref} \
             -I {input.bam} \
             --dbsnp {params.dbsnp} \
-            -O {output.vcf}
+            -O {output.vcf}) &> {log}
          """

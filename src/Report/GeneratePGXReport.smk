@@ -13,7 +13,7 @@ rule GetClinicalGuidelines:
         hidden_haplotypes     = load_local(config["table_data"]["hidden_haplotypes"]),
         script_location       = config["run_location"]
     log:
-        "results/logs/{sample}_{seqID}_getClinicalGuidelines.log"
+        "logs/{sample}_{seqID}_getClinicalGuidelines.log"
     singularity:
         config["singularities"]["get_target"]
     shell:
@@ -39,7 +39,7 @@ rule Get_interaction_guidelines:
     singularity:
         config["singularities"]["get_target"]
     log:
-        "results/logs/{sample}_{seqID}_interaction_guidelines.log"
+        "logs/{sample}_{seqID}_interaction_guidelines.log"
     shell:
         """
         python3 {params.script_location}/src/Summary/get_interaction_guidelines.py \

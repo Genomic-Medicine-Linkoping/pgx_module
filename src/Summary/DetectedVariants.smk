@@ -8,7 +8,8 @@ rule DetectedVariants:
     input:
         vcf = "work/{seqID}/Results/Haplotypecaller/filtered/annotated/{sample}_{seqID}.vcf"
     output:
-        csv = "work/{seqID}/Results/Report/detected_variants/{sample}_{seqID}.csv"
+    log:
+        "logs/{sample}_{seqID}_detectedVariants.log"
     singularity:
         config["singularities"]["get_target"]
     shell:
@@ -16,5 +17,5 @@ rule DetectedVariants:
         python3 {params.script_location}/src/Summary/get_target_variants.py \
             --target_bed {params.target_bed} \
             --vcf {input.vcf} \
-            --output {output.csv} 
+            --output {output.csv} &> {log}
         """
