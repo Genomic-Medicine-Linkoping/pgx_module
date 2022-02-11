@@ -52,10 +52,10 @@ class GDF:
 
 class VCF:
     """
-     We are assuming single sample VCF
-     """
+    We are assuming single sample VCF
+    """
     def __init__(self, filename):
-        self.meta = []
+        self.meta = [] # VCF file's "metadata"/"##info section" lines
         self.data = pd.DataFrame()
         self.original_header = []
         self.read_vcf(filename)
@@ -68,6 +68,8 @@ class VCF:
 
         lines = f.readlines()
         lines = [l.strip() for l in lines]
+        # Check if any variants were detected and find where the variants data
+        # starts
         i = None
         for i, line in enumerate(lines):
             if re.search("^#CHROM", line):
@@ -76,17 +78,28 @@ class VCF:
         if i is None:
             raise ImportError("No lines in: " + filename)
 
+        # Store metadata lines
         self.meta = lines[:i - 1]
+
+        # Read in VCF data as df
         data = [l.split("\t") for l in lines[i:]]
         self.data = pd.DataFrame(data[1:], columns=data[0])
+        # Store the read VCF header
         self.original_header = self.data.columns.values
+        # print(data)
         if not self.data.empty:
             sample_column = self.data.columns.values[-1]
             max_len_idx = self.data.FORMAT.str.len().idxmax
-            format_columns = self.data.FORMAT[max_len_idx].split(":")
+            # format_columns = self.data.FORMAT[max_len_idx].split(":")
+            format_columns = self.data.FORMAT.str.split(":")[[0]].to_list()[0]
+            #print(format_columns) # ['GT', 'AD', 'DP', 'GQ', 'PL']
+            # print(sample_column)
+            # Create a df from FORMAT column to separate columns
             format_split = pd.DataFrame(self.data[sample_column].apply(lambda x: x.split(":")).to_list(),
                                         columns=format_columns)
+            # Join new FORMAT columns to the rest of the data
             self.data = pd.concat([self.data, format_split], axis=1)
+
 
     def filter_snp(self, filter_file, exclude=True, column="SNP"):
         filter_snps = pd.read_csv(filter_file, sep="\t")[column]
