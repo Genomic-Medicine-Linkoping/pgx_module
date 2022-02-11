@@ -3,13 +3,12 @@ h1, h2, h3, h4, h5, h6, legend {
 }
 
 #sidebar h2 {
-   background-image: url("gms_logo.png");
-   background-position: 50% 85%;
-   background-size: 50%;
-   background-repeat: no-repeat;
-   background-color: #fcfcfc;
-   height: 150px;
-
+    background-image: url("gms_logo.png");
+    background-position: 50% 85%;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-color: #fcfcfc;
+    height: 150px;
 }
 
 #sidebar > h2 > a {
