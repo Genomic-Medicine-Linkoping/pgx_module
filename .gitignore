@@ -8,3 +8,5 @@ results
 logs
 # Snakemake workflow report
 report.html
+# Automatically created py cache
+src/Summary/__pycache__
