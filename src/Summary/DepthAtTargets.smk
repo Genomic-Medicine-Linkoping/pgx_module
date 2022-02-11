@@ -1,11 +1,11 @@
 
 rule SampleTargetList:
-    params:
-        target_bed = load_local(config["table_data"]["target_rsid"]),
-        script_location   = config["run_location"]
     input:
-        detected_variants = "work/{seqID}/Results/Report/detected_variants/{sample}_{seqID}.csv",
+        detected_variants = "results/Report/detected_variants/{sample}_{seqID}.csv",
     output:
+        interval = "results/Report/coverage/{sample}_{seqID}_target_interval.list"
+    params:
+        target_bed = config["table_data"]["target_rsid"]
     log:
         "logs/{sample}_{seqID}_sampleTargetList.log"
     singularity:
@@ -21,13 +21,14 @@ rule SampleTargetList:
 
 rule DepthOfTargets:
     """ Get read depth of variant locations at wildtrype-called positions """
+    input:
+        bam      = "results/bam/{sample}_{seqID}-dedup.filtered.bam",
+        interval = "results/Report/coverage/{sample}_{seqID}_target_interval.list"
+    output:
+        gdf      = "results/Report/coverage/{sample}_{seqID}_depth_at_missing.gdf",
     params:
         ref        = config["reference_fasta"],
-        target_bed = load_local(config["table_data"]["target_rsid"])
-    input:
-        bam      = "work/{seqID}/Results/bam/{sample}_{seqID}-dedup.filtered.bam",
-        interval = "work/{seqID}/Results/Report/coverage/{sample}_{seqID}_target_interval.list"
-    output:
+        target_bed = config["table_data"]["target_rsid"]
     log:
         "logs/{sample}_{seqID}_depthOfTargets.log"
     singularity:
@@ -44,8 +45,11 @@ rule DepthOfTargets:
 
 
 rule GetPaddedBaits:
+    output:
+        interval = "results/gdf/padded_bait_interval.list"
     params:
         padding= 100,
+        target_bed = config["table_data"]["target_regions"]
     log:
         "logs/getPaddedBaits.log"
     singularity:
@@ -61,9 +65,14 @@ rule GetPaddedBaits:
 
 rule DepthOfBaits:
     """ Get read depth of baits """
+    input:
+        bam      = "results/bam/{sample}_{seqID}-dedup.filtered.bam",
+        interval = "results/gdf/padded_bait_interval.list"
+    output:
+        gdf      = "results/gdf/{sample}_{seqID}.gdf",
     params:
         ref        = config["reference_fasta"],
-        target_bed = load_local(config["table_data"]["target_regions"]),
+        target_bed = config["table_data"]["target_regions"],
         padding = 100
     log:
         "logs/{sample}_{seqID}_depthOfBaits.log"

@@ -1,12 +1,12 @@
 
 rule AppendIDtoGDF:
     """ Add variant id to appropriate location in gdf """
-    params:
-        target_bed = load_local(config["table_data"]["target_rsid"]),
-        script_location   = config["run_location"]
     input:
-        gdf = "work/{seqID}/Results/Report/coverage/{sample}_{seqID}_depth_at_missing.gdf"
+        gdf = "results/Report/coverage/{sample}_{seqID}_depth_at_missing.gdf"
     output:
+        gdf = "results/Report/coverage/{sample}_{seqID}_depth_at_missing_annotated.gdf"
+    params:
+        target_bed = config["table_data"]["target_rsid"]
     log:
         "logs/{sample}_{seqID}_appendIDtoGDF.log"
     singularity:

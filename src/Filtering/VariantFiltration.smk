@@ -1,7 +1,12 @@
 
 rule VariantFiltration:
+    input:
+        vcf = "results/Haplotypecaller/{sample}_{seqID}.vcf"
+    output:
+        filtered_vcf = "results/Haplotypecaller/filtered/{sample}_{seqID}.vcf"
     params:
         DP = 100,
+        read_ratio = 0.2
     log:
         "logs/{sample}_{seqID}_variantFiltration.log"
     singularity:

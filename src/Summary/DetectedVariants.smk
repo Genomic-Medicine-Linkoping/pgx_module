@@ -1,13 +1,13 @@
 
 rule DetectedVariants:
     """ Get variants with target rsIDs """
-    params:
-        target_bed        = load_local(config["table_data"]["target_rsid"]),
-        hidden_haplotypes = load_local(config["table_data"]["hidden_haplotypes"]),
-        script_location   = config["run_location"]
     input:
-        vcf = "work/{seqID}/Results/Haplotypecaller/filtered/annotated/{sample}_{seqID}.vcf"
+        vcf = "results/Haplotypecaller/filtered/annotated/{sample}_{seqID}.vcf"
     output:
+        csv = "results/Report/detected_variants/{sample}_{seqID}.csv"
+    params:
+        target_bed        = config["table_data"]["target_rsid"],
+        hidden_haplotypes = config["table_data"]["hidden_haplotypes"]
     log:
         "logs/{sample}_{seqID}_detectedVariants.log"
     singularity:

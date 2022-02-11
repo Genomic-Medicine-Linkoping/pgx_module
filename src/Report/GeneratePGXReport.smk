@@ -1,17 +1,15 @@
-## NOTE: setting '.libPaths('/lib/rlib')' specific to singularity used
 
 rule GetClinicalGuidelines:
     """ Given detected variants, get possible Haplotype combinations """
     input:
-        found_variants  = "results/Report/detected_variants/{sample}_{seqID}.csv",
+        found_variants = "results/Report/detected_variants/{sample}_{seqID}.csv",
     output:
         csv = "results/Report/detected_variants/possible_diploids/{sample}_{seqID}.csv"
     params:
-        haplotype_definitions = load_local(config["table_data"]["haplotype_definitions"]),
-        clinical_guidelines   = load_local(config["clinical_data"]["clinical_guidelines"]),
-        haplotype_activity    = load_local(config["clinical_data"]["haplotype_activity"]),
-        hidden_haplotypes     = load_local(config["table_data"]["hidden_haplotypes"]),
-        script_location       = config["run_location"]
+        haplotype_definitions = config["table_data"]["haplotype_definitions"],
+        clinical_guidelines   = config["clinical_data"]["clinical_guidelines"],
+        haplotype_activity    = config["clinical_data"]["haplotype_activity"],
+        hidden_haplotypes     = config["table_data"]["hidden_haplotypes"]
     log:
         "logs/{sample}_{seqID}_getClinicalGuidelines.log"
     singularity:
@@ -34,8 +32,7 @@ rule Get_interaction_guidelines:
     output:
         csv = "results/Report/detected_variants/possible_interactions/{sample}_{seqID}.csv"
     params:
-        script_location = config["run_location"],
-        interacting_targets = load_local(config["clinical_data"]["interacting_guidelines"])
+        interacting_targets = config["clinical_data"]["interacting_guidelines"]
     singularity:
         config["singularities"]["get_target"]
     log:
