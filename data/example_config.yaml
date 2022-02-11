@@ -1,9 +1,9 @@
 singularities:
-    gatk3:      "/home/joel/Documents/GMS/pipelines/pgx_module/envs/gatk3.simg"
-    gatk4:      "/home/joel/Documents/GMS/pipelines/pgx_module/envs/gatk4.simg"
-    rmarkdown:  "/home/joel/Documents/GMS/pipelines/pgx_module/envs/rmarkdown.simg"
-    samtools:   "/home/joel/Documents/GMS/pipelines/pgx_module/envs/samtools.simg"
-    get_target: "/home/joel/Documents/GMS/pipelines/pgx_module/envs/target_variants_python.simg"
+    gatk3:      "/data/sifs/pgx_module/gatk3.simg"
+    gatk4:      "/data/sifs/pgx_module/gatk4.simg"
+    rmarkdown:  "/data/sifs/pgx_module/rmarkdown.simg"
+    samtools:   "/data/sifs/pgx_module/samtools.simg"
+    get_target: "/data/sifs/pgx_module/target_variants_python.simg"
 
 table_data:
     target_regions:        "data/genomic_regions/exons_variants_pharmacogenomics_18_06_2019_ex_cyp2d6.bed"
@@ -14,17 +14,16 @@ table_data:
 clinical_data:
     clinical_guidelines:    "data/guidelines/clinical_guidelines.csv"
     haplotype_activity:     "data/guidelines/haplotype_activity_score.csv"
-    interaction_guidelines: "data/guidelines/interaction_guidelines.csv"
+    interacting_guidelines: "data/guidelines/interaction_guidelines.csv"
 
-reference_fasta: "/home/joel/Documents/Resourses/GATK/ucsc.hg19.fasta"
-dbsnp: "/home/joel/Documents/Resourses/GATK/dbsnp_138.hg19.vcf"
+reference_fasta: "/data/Twist_DNA/hg19/genome.fa"
+dbsnp: "/data/pgx_module/references/dbsnp_138.hg19.vcf"
 
 ## Input location
 input_dir:
-    "/home/joel/Documents/GMS/celemics/200709_CE_TS_NE_200626A003-001_Pharmacoscreen"
+    "/data/TNscope/deduped"
 bam_location:
-    "/home/joel/Documents/GMS/celemics/200709_CE_TS_NE_200626A003-001_Pharmacoscreen/{sample}.{seqID}.bam"
-
+    "/data/TNscope/TNscope_data_extraction/{sample}.{seqID}.bam"
 
 # Contact information
 name: "Person Persson"
