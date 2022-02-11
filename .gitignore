@@ -1,6 +1,10 @@
-Results/*
-*.simg
-.idea/*
-.snakemake/*
-dev/*
-test/*
+# Snakemake metadata
+.snakemake
+# Temporary files that can be eventually deleted 
+temp
+# Results files
+results
+# Rule logs
+logs
+# Snakemake workflow report
+report.html
