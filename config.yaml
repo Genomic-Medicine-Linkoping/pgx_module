@@ -1,4 +1,6 @@
+
 singularities:
+    # These are created using: envs/get_cointainers.sh
     gatk3:      "/data/sifs/pgx_module/gatk3.simg"
     gatk4:      "/data/sifs/gatk/gatk_4.2.5.0.sif"
     rmarkdown:  "/data/sifs/pgx_module/rmarkdown.simg"
