@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: continuumio/miniconda3:4.10.3p1
+
+%labels
+	MAINTAINER Lauri Mesilaakso <lauri.mesilaakso@regionostergotland.se>
+	DESCRIPTION Singularity container for pgx module reporting
+	VERSION 0.1.0
+
+%environment
+        export PATH="/opt/conda/envs/pgx/bin:$PATH"
+        export LC_ALL=C.UTF-8
+        export LANG=C.UTF-8
+
+%files
+        recipes/env.yml /environment.yml
+
+%post
+        apt update && apt -y upgrade
+        apt install --no-install-recommends -y build-essential make curl unzip locales
+        #apt install -y build-essential make curl unzip locales
+
+        /opt/conda/bin/conda update -n base -c defaults conda
+        /opt/conda/bin/conda install mamba -n base -c conda-forge
+        /opt/conda/bin/mamba env create -f /environment.yml
+        
+        conda clean -a
+        apt-get clean
+        rm -rf /var/lib/apt/lists/\* /tmp/\* /var/tmp/*
+
+%runscript
+        . /opt/conda/bin/activate pgx
+	exec "$@"
