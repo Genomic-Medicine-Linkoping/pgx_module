@@ -57,7 +57,7 @@ clean:
 	results/Haplotypecaller \
 	results/Report \
 	results/gdf \
-	results/logs
+	logs
 
 ## help: Show this message
 help:
