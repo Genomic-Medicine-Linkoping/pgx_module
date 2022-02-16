@@ -21,8 +21,8 @@ clinical_data:
 reference_fasta: "/data/Twist_DNA/hg19/genome.fa"
 dbsnp: "/data/ref/dbsnp_138.hg19.vcf"
 
-## Input location
-bam_location: "/data/TNscope/TNscope_data_extraction/deduped/{sample}_{seqID}.bam"
+## NOTE: Adjust input location based on where the input bams are located
+bam_location: "/data/exp/test_Twist_DNA_Solid_bam_output/bams/{sample}_{seqID}.bam"
 
 # Contact information
 name: "Person Persson"
