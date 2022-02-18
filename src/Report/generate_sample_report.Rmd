@@ -97,7 +97,7 @@ kable(header_table, col.names=NULL) %>%
 
 ```
 
-# Kliniska rekommendationer baserad på genotyper
+# Kliniska rekommendationer baserade på genotyper
 
 ```{r}
 clin_columns <- c("gene", "Haplotype1", "Haplotype2", "Guideline")
@@ -116,12 +116,11 @@ clinical_guidelines_present %>%
 
 ```{r results="asis"}
 if (length(warning_idx) != 0){
-  cat("<b><u>En eller flera varianter som tillhör haplotyp har flagats som osäker.\n Följ inte rödmarkerade kliniska rekommendationer! </u></b>")
+  cat("<b><u>En eller flera varianter som tillhör haplotyp har flaggats som osäker.\n Följ inte rödmarkerade kliniska rekommendationer! </u></b>")
 }
-
 ```
 
-# Kliniska rekomendationer baserade på interaktioner mellan genotyper
+# Kliniska rekommendationer baserade på interaktioner mellan genotyper
 
 ```{r}
 interaction_guidelines %>%
