@@ -14,9 +14,7 @@ ARGS = --rerun-incomplete
 # ARGS = --dry-run
 # ARGS = --forceall --rerun-incomplete
 
-CONFIG = /data/pgx_module/results/LI_VAL_1-2-9-17/config.yaml
-OUT_DIR = /data/pgx_module/results
-SEQ_ID = LI_VAL_1-2-9-17
+SAMPLES_DIR = VAL_01-40
 CPUS = 90
 
 # Singularity bind directories
@@ -29,6 +27,7 @@ REF = /data/Twist_DNA/hg19
 .PHONY: \
 start \
 report \
+results_to_temp \
 clean \
 help \
 test
@@ -50,6 +49,12 @@ start:
 report:
 	$(CONDA_ACTIVATE)
 	snakemake -j 1 --report $(REPORT) -s Snakefile
+
+## results_to_temp: Move all results to temp directory for temporary archiving
+results_to_temp:
+	mkdir -p temp/$(SAMPLES_DIR)
+	mv results logs temp/$(SAMPLES_DIR)
+	cp Snakefile config.yaml temp/$(SAMPLES_DIR)
 
 ## clean: Remove output files
 clean:
