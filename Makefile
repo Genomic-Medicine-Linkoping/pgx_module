@@ -54,9 +54,7 @@ report:
 ## clean: Remove output files
 clean:
 	rm -rf \
-	results/Haplotypecaller \
-	results/Report \
-	results/gdf \
+	results \
 	logs
 
 ## help: Show this message
