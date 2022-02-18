@@ -123,10 +123,14 @@ if (length(warning_idx) != 0){
 # Kliniska rekommendationer baserade på interaktioner mellan genotyper
 
 ```{r}
+# Check if there are rows in the df
+if (dim(interaction_guidelines)[1] != 0) {
 interaction_guidelines %>%
     kable(format = "html", escape = F) %>%
     kable_styling() %>%
     row_spec(warning_idx, bold=T, color ="white", background = "red")
+}
+
 ```
 
 # Kliniskt relevanta varianter upptäckta
