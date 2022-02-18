@@ -48,7 +48,7 @@ rule GetPaddedBaits:
     output:
         interval = "results/gdf/padded_bait_interval.list"
     params:
-        padding= 100,
+        padding = 100,
         target_bed = config["table_data"]["target_regions"]
     log:
         "logs/getPaddedBaits.log"
@@ -66,12 +66,12 @@ rule GetPaddedBaits:
 rule DepthOfBaits:
     """ Get read depth of baits """
     input:
-        bam      = "results/bam/{sample}_{seqID}-dedup.filtered.bam",
+        bam = "results/bam/{sample}_{seqID}-dedup.filtered.bam",
         interval = "results/gdf/padded_bait_interval.list"
     output:
-        gdf      = "results/gdf/{sample}_{seqID}.gdf",
+        gdf = "results/gdf/{sample}_{seqID}.gdf",
     params:
-        ref        = config["reference_fasta"],
+        ref = config["reference_fasta"],
         target_bed = config["table_data"]["target_regions"],
         padding = 100
     log:
