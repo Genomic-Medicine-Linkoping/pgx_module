@@ -19,9 +19,10 @@ CPUS = 90
 
 # Singularity bind directories
 RESOURCES = /data/ref/
-INPUT = /data/TNscope/TNscope_data_extraction/deduped
 DATA =  /home/lauri/Desktop/pgx_module
 REF = /data/Twist_DNA/hg19
+## NOTE: Change this to directory where the input data resides
+INPUT = /data/Twist_DNA_Solid/results/GMS560_Validation_01-40/bams
 
 
 .PHONY: \
@@ -29,8 +30,7 @@ start \
 report \
 results_to_temp \
 clean \
-help \
-test
+help
 
 
 ## start: Run the pipeline
