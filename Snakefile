@@ -3,8 +3,8 @@ configfile: "config.yaml"
 
 ## NOTE: Adjust wildcards depending on the sample name
 wildcard_constraints:
-    sample = "BC",
-    seqID = "[0-9]+_T"
+    sample = "LI-VAL",
+    seqID = "[0-9]+"
 
 
 include:    "src/Variantcalling/HaplotypeCaller.smk"
@@ -20,5 +20,5 @@ include:    "src/Filtering/SubsetReadsTarget.smk"
 rule All:
     input:
         expand("/home/lauri/Desktop/pgx_module/results/Report/{sample}_{seqID}_pgx.html",
-        sample=["BC"],
-        seqID=["1_T","2_T","3_T","4_T","5_T","6_T","7_T","8_T"])
+        sample=["LI-VAL"],
+        seqID=["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40"])
