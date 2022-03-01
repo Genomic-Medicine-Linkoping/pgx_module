@@ -188,7 +188,7 @@ for (gene in genes){
   target_table_file <- paste0(params$data_location, "/genomic_regions/target_rsid.bed")
   gdf_file <- params$depth_file
 
-  plt[[i]] <- as_widget(get_ploty_depth_plot(
+  plt[[i]] <- as_widget(get_plotly_depth_plot(
     params$found_variants,
     target_table_file,
     bait_table_file,

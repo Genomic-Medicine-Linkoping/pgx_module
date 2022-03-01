@@ -17,7 +17,7 @@ options(warn=-1)
 # plotly interactive plot With exons, introns, detected variants, target variants and read depth
 #
 
-get_ploty_depth_plot <- function(detected_var_file, target_table_file, bait_table_file, gdf_file, exon_table_file, gene){
+get_plotly_depth_plot <- function(detected_var_file, target_table_file, bait_table_file, gdf_file, exon_table_file, gene){
 detected_variants <- read.csv(
   detected_var_file, sep = "\t", stringsAsFactors = F, row.names = NULL)
 
