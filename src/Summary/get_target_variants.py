@@ -19,9 +19,13 @@ class GDF:
             self.data.Locus.apply(lambda x: x.split(":")).to_list(),
             columns=["CHROM", "POS"]
         )
+        # Convert POS column to int64 
         pos_df.POS = pos_df.POS.astype('int64')
+        # Join column-wise the read tsv table and pos_df 
         self.data = pd.concat([self.data, pos_df], axis=1)
 
+    # rsid is Reference SNP ID number. An identification number assigned by NCBI to a specific genetic variant.
+    # source: https://www.pharmgkb.org/page/glossary
     def rsid_per_position(self, target_bed):
         def _annotate(x, targets):
             try:
@@ -32,15 +36,20 @@ class GDF:
             except IndexError:
                 return "-"
 
+
         targets = pd.read_csv(
             target_bed, sep="\t",
             names=["CHROM", "START", "END", "ID", "GENE"]
         )
+        # Swap coordinates if START > END
         targets["save"] = targets.START
         idx_swap = targets.START > targets.END
         targets.loc[idx_swap, "START"] = targets.loc[idx_swap, "END"]
         targets.loc[idx_swap, "END"] = targets.loc[idx_swap, "save"]
+        # Prepend to chromosome numbers "chr"
         targets["CHROM"] = targets.CHROM.apply(lambda x: f"chr{x}")
+        
+        # Add ID column with comma joined rsid:s to data table attribute
         self.data["ID"] = self.data.apply(lambda x: _annotate(x, targets), axis=1)
 
     def write_proccessed_gdf(self, filename, annotate=True):
