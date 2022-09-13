@@ -13,9 +13,9 @@ rule SampleTargetList:
     shell:
         """
         python3 src/Summary/reform_genomic_region.py \
-            --target_bed={params.target_bed} \
-            --output_file={output.interval} \
-            --detected_variants={input.detected_variants} &> {log}
+        --target_bed={params.target_bed} \
+        --output_file={output.interval} \
+        --detected_variants={input.detected_variants} &> {log}
         """
 
 
@@ -27,8 +27,7 @@ rule DepthOfTargets:
     output:
         gdf      = "results/Report/coverage/{sample}_{seqID}_depth_at_missing.gdf",
     params:
-        ref        = config["reference_fasta"],
-        target_bed = config["table_data"]["target_rsid"]
+        ref      = config["reference_fasta"]
     log:
         "logs/{sample}_{seqID}_depthOfTargets.log"
     singularity:

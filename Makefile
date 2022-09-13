@@ -10,20 +10,21 @@ CURRENT_CONDA_ENV_NAME = pgx_module
 CONDA_ACTIVATE = source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate $(CURRENT_CONDA_ENV_NAME)
 
 # ARGS = --forceall
-ARGS = --rerun-incomplete 
+ARGS = --rerun-incomplete
 # ARGS = --dry-run
 # ARGS = --forceall --rerun-incomplete
 
 SAMPLES_DIR = VAL_01-40
-CPUS = 90
+CPUS = 92
 
 # Singularity bind directories
-RESOURCES = /data/ref/
+RESOURCES = /data/reference_genomes/
 DATA =  /home/lauri/Desktop/pgx_module
-REF = /data/Twist_DNA/hg19
-## NOTE: Change this to directory where the input data resides
-INPUT = /data/Twist_DNA_Solid/results/GMS560_Validation_01-40/bams
+REF = /data/reference_genomes/hg19/
 
+## NOTE: Change this to directory where the input data resides
+# INPUT = /data/Twist_DNA_Solid/results/GMS560_Validation_01-40/bams
+INPUT = /home/lauri/Desktop/pgx_dev/our_fork/pgx/
 
 .PHONY: \
 start \
@@ -41,7 +42,7 @@ start:
     --reason \
 	--configfile config.yaml \
 	--use-singularity \
-	--singularity-args "--bind ${RESOURCES} --bind ${INPUT} --bind ${DATA} --bind ${REF}" \
+	--singularity-args "--bind ${RESOURCES} --bind ${INPUT} --bind ${REF}" \
 	--cores $(CPUS) \
 	$(ARGS)
 
@@ -60,6 +61,7 @@ results_to_temp:
 clean:
 	rm -rf \
 	results \
+	Report \
 	logs
 
 ## help: Show this message

@@ -34,6 +34,9 @@ rule Subset_pharmacogenomic_reads:
         config["singularities"]["samtools"]
     shell:
         """
-        (samtools view -b {input.bam} -L {input.region_list} > {output.bam}) &> {log}
+        (samtools view \
+        -b {input.bam} \
+        -L {input.region_list} \
+        > {output.bam}) &> {log}
         samtools index {output.bam} &>> {log}
         """

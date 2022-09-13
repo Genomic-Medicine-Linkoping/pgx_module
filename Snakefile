@@ -2,12 +2,13 @@
 configfile: "config.yaml"
 
 ## NOTE: Adjust the base name for all samples
-sample_pattern = "LI-VAL"
+# sample_pattern = "LI-VAL"
+sample_pattern = "HD832"
 
 ## NOTE: Adjust wildcards depending on the sample name
 wildcard_constraints:
     sample = sample_pattern,
-    seqID = "[0-9]+"
+    seqID = "T"
 
 
 include:    "src/Variantcalling/HaplotypeCaller.smk"
@@ -24,4 +25,5 @@ rule All:
     input:
         expand("/home/lauri/Desktop/pgx_module/results/Report/{sample}_{seqID}_pgx.html",
         sample=[sample_pattern],
-        seqID=["01","02"])
+        seqID=["T"])
+        # expand("/home/lauri/Desktop/pgx_module/results/Report/{sample}_{seqID}_pgx.html",

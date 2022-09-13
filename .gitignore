@@ -10,3 +10,5 @@ logs
 report.html
 # Automatically created py cache
 src/Summary/__pycache__
+.spyproject
+.vscode

@@ -9,6 +9,7 @@ singularities:
 
 table_data:
     target_regions:        "data/genomic_regions/exons_variants_pharmacogenomics_18_06_2019_ex_cyp2d6.bed"
+    # target_regions:        "data/genomic_regions/DPYD_CNV98_NM_XXX.bed"
     target_rsid:           "data/genomic_regions/target_rsid.bed"
     haplotype_definitions: "data/haplotypes/haplotype_definitions.csv"
     hidden_haplotypes:     "data/haplotypes/hidden_haplotypes.csv"
@@ -18,11 +19,11 @@ clinical_data:
     haplotype_activity:     "data/guidelines/haplotype_activity_score.csv"
     interacting_guidelines: "data/guidelines/interaction_guidelines.csv"
 
-reference_fasta: "/data/Twist_DNA/hg19/genome.fa"
-dbsnp: "/data/ref/dbsnp_138.hg19.vcf"
+reference_fasta: "/data/reference_genomes/hg19/hg19/genome.fa"
+dbsnp: "/data/reference_genomes/dbsnp_138.hg19.vcf"
 
 ## NOTE: Adjust input location based on where the input bams are located
-bam_location: "/data/exp/test_Twist_DNA_Solid_bam_output/bams/{sample}_{seqID}.bam"
+bam_location: "/home/lauri/Desktop/pgx_dev/our_fork/pgx/alignment/bwa_mem/HD832_T.bam"
 
 # Contact information
 name: "Person Persson"
